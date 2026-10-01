@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnnaStory — разбор по глазам и ладони</title>
+<meta name="description" content="Персональный разбор по фотографии: глаза или ладонь. Цены от 90 ₽. Бонус — разбор 1 личного вопроса.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0e0b1a;
+    --bg-2: #161029;
+    --card: #1c1533;
+    --accent: #c9a86a;
+    --accent-2: #e8d5a8;
+    --text: #ece7f5;
+    --muted: #a99fc4;
+    --border: rgba(201,168,106,0.25);
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(201,168,106,0.15), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(120,80,200,0.15), transparent 50%),
+      var(--bg);
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 40% 60%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 90% 80%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 25% 85%, rgba(255,255,255,0.35), transparent);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 780px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 8px 18px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  h1 {
+    font-size: clamp(32px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 22px;
+  }
+  h1 .accent {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--muted);
+    max-width: 580px;
+    margin: 0 auto 36px;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #1a1330;
+    padding: 16px 34px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 30px rgba(201,168,106,0.35);
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,106,0.5); }
+  .cta svg { width: 20px; height: 20px; }
+
+  /* SECTIONS */
+  section { padding: 80px 20px; }
+  .container { max-width: 1000px; margin: 0 auto; }
+  h2 {
+    font-size: clamp(26px, 4vw, 38px);
+    text-align: center;
+    margin-bottom: 14px;
+    letter-spacing: -0.5px;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    margin-bottom: 50px;
+    font-size: 17px;
+  }
+
+  /* ABOUT */
+  .about { background: var(--bg-2); }
+  .about p {
+    max-width: 700px;
+    margin: 0 auto 20px;
+    color: var(--muted);
+    font-size: 17px;
+    text-align: center;
+  }
+  .about strong { color: var(--accent-2); }
+
+  /* PACKAGES */
+  .packages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 34px 28px;
+    transition: transform 0.25s, border-color 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-6px); border-color: var(--accent); }
+  .card.popular {
+    border-color: var(--accent);
+    box-shadow: 0 0 40px rgba(201,168,106,0.15);
+  }
+  .card .tag {
+    position: absolute; top: 18px; right: 18px;
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--accent); color: #1a1330;
+    padding: 4px 12px; border-radius: 100px; font-weight: 700;
+  }
+  .card h3 { font-size: 22px; margin-bottom: 10px; }
+  .card .icon { font-size: 34px; margin-bottom: 14px; display: block; }
+  .card p { color: var(--muted); font-size: 15px; margin-bottom: 18px; }
+  .card ul { list-style: none; margin-bottom: 24px; }
+  .card ul li {
+    color: var(--text); font-size: 15px; padding: 6px 0 6px 24px; position: relative;
+  }
+  .card ul li::before {
+    content: '✦'; position: absolute; left: 0; color: var(--accent);
+  }
+  .card .price {
+    font-size: 28px; font-weight: 700; color: var(--accent-2);
+  }
+
+  /* STEPS */
+  .steps { background: var(--bg-2); }
+  .steps-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+    margin-top: 20px;
+  }
+  .step {
+    text-align: center;
+    padding: 26px 20px;
+    background: var(--card);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+  }
+  .step .num {
+    width: 44px; height: 44px; line-height: 44px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #1a1330; font-weight: 800; font-size: 18px;
+  }
+  .step h4 { font-size: 17px; margin-bottom: 8px; }
+  .step p { color: var(--muted); font-size: 14px; }
+
+  /* FAQ */
+  .faq-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .faq-item:hover { border-color: var(--accent); }
+  .faq-item summary {
+    font-weight: 600; font-size: 16px; list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+'; color: var(--accent); font-size: 22px; transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-item p { color: var(--muted); margin-top: 12px; font-size: 15px; }
+
+  /* CTA BLOCK */
+  .cta-block {
+    background: linear-gradient(135deg, var(--bg-2), var(--bg));
+    text-align: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cta-block h2 { margin-bottom: 16px; }
+  .cta-block p { color: var(--muted); margin-bottom: 30px; max-width: 520px; margin-left: auto; margin-right: auto; }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  .disclaimer {
+    max-width: 620px;
+    margin: 20px auto 0;
+    font-size: 12px;
+    color: #7a7096;
+  }
+
+  /* FLOATING CTA */
+  .floating {
+    position: fixed; bottom: 20px; right: 20px;
+    z-index: 100;
+    display: none;
+  }
+  @media (max-width: 700px) { .floating { display: inline-flex; } }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">Персональный разбор по фото</span>
+    <h1>Узнай себя через <span class="accent">глаза и ладонь</span></h1>
+    <p>Разбор по радужке глаз или линиям ладони. Плюс бонус — разбор <strong style="color: var(--accent-2);">1 личного вопроса</strong>, который тебя волнует. Цены — от 90 ₽.</p>
+    <a href="https://t.me/AnnaStory_bot" class="cta" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+      Открыть бота в Telegram
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="container">
+    <h2>Что это за разбор</h2>
+    <p class="subtitle">Личная интерпретация по фотографии — развлекательно-консультационный формат</p>
+    <p>Присылаешь фото глаз или ладони и свой главный вопрос — я смотрю и даю <strong>личную интерпретацию</strong>: характер, внутренние противоречия, жизненные тенденции и то, куда может привести ситуация.</p>
+    <p>Это не гадание и не предсказание. Это взгляд со стороны — на то, что ты, возможно, сама не замечаешь.</p>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section>
+  <div class="container">
+    <h2>Форматы разбора</h2>
+    <p class="subtitle">К любому разбору — бонус: разбор 1 личного вопроса</p>
+    <div class="packages">
+
+      <div class="card">
+        <span class="icon">👁</span>
+        <h3>Разбор по глазам</h3>
+        <p>Интерпретация по фото радужной оболочки.</p>
+        <ul>
+          <li>Врождённые черты характера</li>
+          <li>Внутренние противоречия</li>
+          <li>Жизненные тенденции</li>
+          <li><strong style="color: var(--accent-2);">Бонус: 1 личный вопрос</strong></li>
+        </ul>
+        <div class="price">90 ₽</div>
+      </div>
+
+      <div class="card">
+        <span class="icon">🤚</span>
+        <h3>Разбор по ладони</h3>
+        <p>Интерпретация по фото линий ладони.</p>
+        <ul>
+          <li>Линия жизни, судьбы, сердца</li>
+          <li>Таланты и склонности</li>
+          <li>Жизненные тенденции</li>
+          <li><strong style="color: var(--accent-2);">Бонус: 1 личный вопрос</strong></li>
+        </ul>
+        <div class="price">90 ₽</div>
+      </div>
+
+      <div class="card popular">
+        <span class="tag">Выгодно</span>
+        <span class="icon">✨</span>
+        <h3>Полный комплекс</h3>
+        <p>Глаза + ладонь. Максимум информации.</p>
+        <ul>
+          <li>Разбор по фото глаз</li>
+          <li>Разбор по фото ладони</li>
+          <li>Синтез двух систем</li>
+          <li><strong style="color: var(--accent-2);">Бонус: 1 личный вопрос</strong></li>
+        </ul>
+        <div class="price">140 ₽</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps">
+  <div class="container">
+    <h2>Как это работает</h2>
+    <p class="subtitle">От заявки до готового разбора — в течение дня после оплаты</p>
+    <div class="steps-list">
+      <div class="step">
+        <div class="num">1</div>
+        <h4>Открой бота</h4>
+        <p>Нажми «Открыть бота» — Telegram откроет чат.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h4>Выбери формат</h4>
+        <p>Глаза / ладонь / комплекс — кнопкой в боте.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h4>Пришли фото и вопрос</h4>
+        <p>Фото глаз или ладони + 1 личный вопрос.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <h4>Оплати и получи разбор</h4>
+        <p>Бот пришлёт реквизиты. Разбор — в течение дня.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE FOLLOW-UP -->
+<section style="background: var(--bg-2);">
+  <div class="container" style="max-width: 720px; text-align: center;">
+    <div style="font-size: 44px; margin-bottom: 16px;">💬</div>
+    <h2>Что-то осталось непонятным?</h2>
+    <p style="color: var(--muted); font-size: 17px; margin: 16px auto 28px; max-width: 620px;">
+      Если после разбора что-то показалось неполным или непонятным — просто напиши об этом, и я <strong style="color: var(--accent-2);">уточню или разберу тот же вопрос ещё раз бесплатно</strong>.
+    </p>
+    <a href="https://t.me/AnnaStory_bot" class="cta" target="_blank" rel="noopener">
+      Открыть бота
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="container" style="max-width:780px;">
+    <h2>Частые вопросы</h2>
+    <p class="subtitle">Если чего-то нет — спроси прямо в боте</p>
+
+    <details class="faq-item">
+      <summary>Это гадание?</summary>
+      <p>Нет. Разбор — это личная интерпретация по фото, развлекательно-консультационный формат. Он не заменяет профессиональную психологическую, медицинскую, юридическую или финансовую консультацию.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Какие фото нужны?</summary>
+      <p>Для разбора по глазам — чёткое фото глаза (или обоих). Для ладони — чёткое фото раскрытой ладони при хорошем освещении.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Как проходит оплата?</summary>
+      <p>После отправки фото и вопроса бот пришлёт реквизиты для перевода. Разбор готовится в течение дня после оплаты.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Можно ли вернуть деньги?</summary>
+      <p>Возврат за уже выполненную работу не производится. Но если что-то показалось неполным или непонятным — напиши, я уточню или разберу тот же вопрос ещё раз бесплатно.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>Конфиденциально ли это?</summary>
+      <p>Да. Присланные фото и переписка не передаются третьим лицам и используются только для разбора.</p>
+    </details>
+
+    <details class="faq-item">
+      <summary>А если у меня нет @username в Telegram?</summary>
+      <p>Не проблема. Разбор придёт прямо в бот — ты получишь его в чате.</p>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-block">
+  <div class="container">
+    <h2>Готова узнать, что говорят твои глаза и ладони?</h2>
+    <p>Открой бота — там выберешь формат и сразу пришлёшь фото с вопросом.</p>
+    <a href="https://t.me/AnnaStory_bot" class="cta" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+      Открыть бота
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>© AnnaStory · разбор по глазам и ладони</p>
+  <p><a href="https://t.me/AnnaStory_bot" target="_blank" rel="noopener">@AnnaStory_bot</a></p>
+  <p class="disclaimer">
+    Разбор — это личная интерпретация по фото, развлекательно-консультационный формат. Он не заменяет профессиональную психологическую, медицинскую, юридическую или финансовую консультацию.
+  </p>
+</footer>
+
+<!-- Плавающая кнопка для мобильных -->
+<a href="https://t.me/AnnaStory_bot" class="cta floating" target="_blank" rel="noopener" style="padding:14px 22px; font-size:15px;">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+  Разбор
+</a>
+
+</body>
+</html>
